@@ -66,6 +66,7 @@ extern const struct vo_driver video_out_wlshm;
 extern const struct vo_driver video_out_tct;
 extern const struct vo_driver video_out_sixel;
 extern const struct vo_driver video_out_kitty;
+extern const struct vo_driver video_out_gfxprim;
 
 static const struct vo_driver *const video_out_drivers[] =
 {
@@ -116,6 +117,9 @@ static const struct vo_driver *const video_out_drivers[] =
     &video_out_sixel,
 #endif
     &video_out_kitty,
+#if HAVE_GFXPRIM
+    &video_out_gfxprim,
+#endif
     &video_out_lavc,
 };
 

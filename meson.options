@@ -57,6 +57,7 @@ option('wasapi', type: 'feature', value: 'auto', description: 'WASAPI audio outp
 
 # video output features
 option('caca', type: 'feature', value: 'auto', description: 'CACA')
+option('gfxprim', type: 'feature', value: 'auto', description: 'gfxprim')
 option('cocoa', type: 'feature', value: 'auto', description: 'Cocoa')
 option('d3d11', type: 'feature', value: 'auto', description: 'Direct3D 11 video output')
 option('direct3d', type: 'feature', value: 'auto', description: 'Direct3D support')

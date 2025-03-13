@@ -944,6 +944,17 @@ if features['caca']
     sources += files('video/out/vo_caca.c')
 endif
 
+gfxprim_opt = get_option('gfxprim').require(
+    get_option('gpl'),
+    error_message: 'the build is not GPL!',
+)
+gfxprim = dependency('gfxprim-backends', required: gfxprim_opt)
+features += {'gfxprim': gfxprim.found()}
+if features['gfxprim']
+    dependencies += gfxprim
+    sources += files('video/out/vo_gfxprim.c')
+endif
+
 direct3d_opt = get_option('direct3d').require(
     get_option('gpl') and features['win32-desktop'],
     error_message: 'the build is not GPL or this is not a win32 desktop!',
