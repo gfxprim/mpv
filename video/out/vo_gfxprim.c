@@ -145,6 +145,9 @@ static void resize_buffers(struct vo *vo, gp_size screen_w, gp_size screen_h)
 {
     struct priv *priv = vo->priv;
 
+    if (!priv->frame_w || !priv->frame_h)
+	    return;
+
     if (priv->resized_img)
         mp_image_unrefp(&priv->resized_img);
 
@@ -575,11 +578,15 @@ static void wait_events(struct vo *vo, int64_t until_time)
             case GP_EV_SYS_QUIT:
                 mp_input_put_key(vo->input_ctx, MP_KEY_CLOSE_WIN);
             break;
-            case GP_EV_SYS_RESIZE:
-                resize_buffers(vo, ev->sys.w, ev->sys.h);
-                gp_backend_resize_ack(priv->backend);
+            case GP_EV_SYS_RENDER_RESIZE:
+                resize_buffers(vo, ev->resize.w, ev->resize.h);
+            break;
+            case GP_EV_SYS_RENDER_START:
                 gp_fill(priv->backend->pixmap, 0);
                 gp_backend_flip(priv->backend);
+            break;
+            case GP_EV_SYS_RENDER_STOP:
+                gp_backend_render_stopped(priv->backend);
             break;
             }
         break;
